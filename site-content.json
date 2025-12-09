@@ -1,0 +1,250 @@
+{
+  "metadata": {
+    "title": "MLS Flooring | Commercial Concrete Polishing & Epoxy Floors",
+    "description": "Enterprise-grade concrete polishing and epoxy coating solutions for commercial facilities",
+    "phone": "704-981-0555",
+    "location": "Charlotte, NC",
+    "region": "Southeast Region"
+  },
+  "header": {
+    "logo": "/logo.png",
+    "navigation": [
+      "Services",
+      "Industries",
+      "Projects",
+      "About"
+    ],
+    "cta": {
+      "primary": "Request Bid",
+      "phone": "704-981-0555"
+    }
+  },
+  "hero": {
+    "badge": "Enterprise-Grade Solutions",
+    "headline": "Commercial Concrete & Epoxy Flooring",
+    "description": "Delivering polished concrete, epoxy coatings, and surface preparation for Fortune 500 facilities nationwide. From Amazon distribution centers to international airports.",
+    "buttons": [
+      {
+        "text": "Request a Bid",
+        "type": "primary"
+      },
+      {
+        "text": "View Projects",
+        "type": "secondary"
+      }
+    ],
+    "image": "/epoxy-flooring.jpeg",
+    "alt": "Industrial warehouse flooring"
+  },
+  "whyMLS": {
+    "title": "Why MLS Flooring",
+    "subtitle": "Trusted by Fortune 500 companies for large-scale commercial flooring projects.",
+    "items": [
+      {
+        "title": "National Account Experience",
+        "description": "Amazon, CLT Airport, national retail chains"
+      },
+      {
+        "title": "Night & Shutdown Work Experts",
+        "description": "Minimizing disruption to your operations"
+      },
+      {
+        "title": "Certified Crews & Equipment",
+        "description": "Latest technology and trained professionals"
+      },
+      {
+        "title": "Dedicated Project Manager",
+        "description": "For every site, ensuring seamless execution"
+      }
+    ]
+  },
+  "services": {
+    "title": "Comprehensive Flooring Services",
+    "subtitle": "Full-spectrum solutions for commercial and industrial facilities",
+    "items": [
+      {
+        "title": "Concrete Polishing",
+        "description": "High-gloss, durable surfaces for warehouses and retail",
+        "image": "/concrete-polishing.jpeg"
+      },
+      {
+        "title": "Epoxy Coatings",
+        "description": "Chemical-resistant, seamless flooring systems",
+        "image": "/epoxy-flooring.jpeg"
+      },
+      {
+        "title": "Surface Preparation",
+        "description": "Shot blasting, grinding, and coating removal",
+        "image": "/surface-prep.jpeg"
+      },
+      {
+        "title": "Joint Filling & Repairs",
+        "description": "Semi-rigid and flexible joint fill systems",
+        "image": "/epoxy-flooring.jpeg"
+      },
+      {
+        "title": "Moisture Mitigation",
+        "description": "Vapor barrier and moisture control solutions",
+        "image": "/concrete-polishing.jpeg"
+      },
+      {
+        "title": "Turnkey Packages",
+        "description": "Complete flooring solutions for major facilities",
+        "image": "/surface-prep.jpeg"
+      }
+    ]
+  },
+  "industries": {
+    "title": "Industries We Serve",
+    "subtitle": "Specialized flooring solutions for demanding commercial environments",
+    "items": [
+      {
+        "title": "Distribution & Fulfillment",
+        "description": "High-traffic concrete polishing and coatings for 24/7 operations. Designed for forklifts and heavy machinery."
+      },
+      {
+        "title": "Airports & Transportation",
+        "description": "Durable, low-maintenance flooring for terminals and concourses. Meets strict safety standards."
+      },
+      {
+        "title": "Big-Box & Retail",
+        "description": "Polished concrete and epoxy systems combining durability with visual appeal."
+      },
+      {
+        "title": "Manufacturing",
+        "description": "Chemical-resistant, seamless flooring meeting FDA and ISO standards."
+      },
+      {
+        "title": "Education & Municipal",
+        "description": "Low-VOC, sustainable flooring for schools and government buildings."
+      },
+      {
+        "title": "Corporate & Office",
+        "description": "Modern polished concrete for lobbies, showrooms, and open offices."
+      }
+    ]
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "Large-scale installations delivered on time and within budget",
+    "items": [
+      {
+        "title": "Amazon Fulfillment Center",
+        "size": "700,000 sq ft",
+        "location": "Charlotte, NC",
+        "scope": "Concrete polishing & joint fill",
+        "timeline": "9 nights without disruption",
+        "image": "/amazon.jpg"
+      },
+      {
+        "title": "Charlotte International Airport",
+        "size": "450,000 sq ft",
+        "location": "Charlotte, NC",
+        "scope": "Terminal concourse polishing",
+        "timeline": "Off-peak phased installation",
+        "image": "/airport.jpg"
+      },
+      {
+        "title": "National Retail Distribution",
+        "size": "525,000 sq ft",
+        "location": "Southeast Region",
+        "scope": "High-gloss epoxy coating",
+        "timeline": "Fast-track 14-day delivery",
+        "image": "/schools.jpg"
+      }
+    ],
+    "cta": "View All Projects"
+  },
+  "contact": {
+    "title": "Request a Bid",
+    "subtitle": "Get a detailed quote for your commercial flooring project",
+    "form": {
+      "fields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text"
+        },
+        {
+          "name": "company",
+          "label": "Company",
+          "type": "text"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email"
+        },
+        {
+          "name": "phone",
+          "label": "Phone",
+          "type": "tel"
+        },
+        {
+          "name": "location",
+          "label": "Location",
+          "type": "text"
+        },
+        {
+          "name": "squareFootage",
+          "label": "Square Footage",
+          "type": "text"
+        },
+        {
+          "name": "floorType",
+          "label": "Floor Type",
+          "type": "select",
+          "options": [
+            "Select...",
+            "Concrete Polishing",
+            "Epoxy Coating",
+            "Surface Preparation",
+            "Joint Filling",
+            "Full Package"
+          ]
+        },
+        {
+          "name": "timeline",
+          "label": "Timeline",
+          "type": "select",
+          "options": [
+            "Select...",
+            "Immediate (1-2 weeks)",
+            "Soon (2-4 weeks)",
+            "Flexible (1-3 months)",
+            "Planning Phase"
+          ]
+        },
+        {
+          "name": "projectDetails",
+          "label": "Project Details",
+          "type": "textarea"
+        }
+      ],
+      "submitButton": "Submit Request"
+    },
+    "sideContent": {
+      "image": "/epoxy-flooring.jpeg",
+      "alt": "Commercial flooring",
+      "title": "Ready to Get Started?",
+      "description": "Our team provides detailed quotes and project timelines.",
+      "phone": "704-981-0555"
+    }
+  },
+  "footer": {
+    "logo": "/logo.png",
+    "description": "Enterprise-grade concrete polishing and epoxy coating solutions for commercial facilities.",
+    "quickLinks": [
+      "Services",
+      "Industries",
+      "Projects",
+      "Contact"
+    ],
+    "contact": {
+      "phone": "704-981-0555",
+      "location": "Charlotte, NC",
+      "region": "Southeast Region"
+    },
+    "copyright": "© 2025 MLS Flooring. All rights reserved. Licensed & Insured."
+  }
+}
