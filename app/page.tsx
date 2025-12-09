@@ -1,16 +1,36 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Phone, ArrowRight, CheckCircle2, Building2, Factory, Plane, ShoppingCart, GraduationCap, Warehouse, Award, Clock, Users, Shield, Wrench, Droplets, Layers, Grid3x3, FileCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Phone, ArrowRight, Building2, Factory, Plane, ShoppingCart, GraduationCap, Warehouse, Award, Clock, Users, Shield, Wrench, Droplets, Layers, Grid3x3, FileCheck, Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6
+    }
+  }
+};
+
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 100]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,242 +41,290 @@ export default function Home() {
   }, []);
 
   const scrollToContact = () => {
+    setMobileMenuOpen(false);
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleNavClick = (id: string) => {
+    setMobileMenuOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       {/* Header - Sticky */}
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           scrolled 
             ? 'bg-white/95 backdrop-blur-lg shadow-lg py-3' 
-            : 'bg-white/90 backdrop-blur-md py-5'
+            : 'bg-white/90 backdrop-blur-md py-4'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center flex-shrink-0">
               <Image 
                 src="/logo.png" 
                 alt="MLS Flooring" 
-                width={160} 
-                height={48}
-                className={`transition-all duration-300 ${scrolled ? 'h-10' : 'h-12'} w-auto`}
+                width={140} 
+                height={42}
+                className={`transition-all duration-300 ${scrolled ? 'h-9' : 'h-10 md:h-11'} w-auto`}
                 priority
               />
             </Link>
 
-            {/* Nav Links - Desktop */}
-            <nav className="hidden lg:flex items-center space-x-8">
-              <a href="#services" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+              <button onClick={() => handleNavClick('services')} className="text-gray-700 hover:text-mls-blue font-medium transition-colors text-sm">
                 Services
-              </a>
-              <a href="#industries" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+              </button>
+              <button onClick={() => handleNavClick('industries')} className="text-gray-700 hover:text-mls-blue font-medium transition-colors text-sm">
                 Industries
-              </a>
-              <a href="#projects" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+              </button>
+              <button onClick={() => handleNavClick('projects')} className="text-gray-700 hover:text-mls-blue font-medium transition-colors text-sm">
                 Projects
-              </a>
-              <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+              </button>
+              <button onClick={() => handleNavClick('about')} className="text-gray-700 hover:text-mls-blue font-medium transition-colors text-sm">
                 About
-              </a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                Contact
-              </a>
+              </button>
             </nav>
 
             {/* Right Side CTAs */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-3">
               <a 
                 href="tel:7049810555"
-                className="hidden md:flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-blue-600 font-semibold transition-colors"
+                className="hidden xl:flex items-center gap-2 px-3 py-2 text-gray-700 hover:text-mls-blue font-medium transition-colors text-sm"
               >
                 <Phone className="w-4 h-4" />
-                <span className="text-sm">Call for Bids: 704-981-0555</span>
+                <span className="whitespace-nowrap">704-981-0555</span>
               </a>
               <button 
                 onClick={scrollToContact}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl"
+                className="hidden sm:block bg-mls-blue hover:bg-blue-700 text-white px-4 md:px-5 py-2 md:py-2.5 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-sm"
               >
-                Request a Bid
+                Request Bid
+              </button>
+              
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 text-gray-700 hover:text-mls-blue transition-colors"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </div>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden mt-4 pb-4 border-t border-gray-200 pt-4"
+            >
+              <nav className="flex flex-col space-y-3">
+                <button onClick={() => handleNavClick('services')} className="text-left text-gray-700 hover:text-mls-blue font-medium transition-colors py-2">
+                  Services
+                </button>
+                <button onClick={() => handleNavClick('industries')} className="text-left text-gray-700 hover:text-mls-blue font-medium transition-colors py-2">
+                  Industries
+                </button>
+                <button onClick={() => handleNavClick('projects')} className="text-left text-gray-700 hover:text-mls-blue font-medium transition-colors py-2">
+                  Projects
+                </button>
+                <button onClick={() => handleNavClick('about')} className="text-left text-gray-700 hover:text-mls-blue font-medium transition-colors py-2">
+                  About
+                </button>
+                <a href="tel:7049810555" className="text-left text-gray-700 hover:text-mls-blue font-medium transition-colors py-2 flex items-center gap-2">
+                  <Phone className="w-4 h-4" />
+                  704-981-0555
+                </a>
+                <button onClick={scrollToContact} className="bg-mls-blue hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-semibold transition-all text-left">
+                  Request a Bid
+                </button>
+              </nav>
+            </motion.div>
+          )}
         </div>
       </motion.header>
 
-      {/* Hero Section - Enterprise Level */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background with Parallax */}
-        <motion.div 
-          style={{ y: heroY, opacity: heroOpacity }}
-          className="absolute inset-0 z-0"
-        >
-          <Image
-            src="/hero-bg.png"
-            alt="Commercial flooring project"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-blue-900/90 to-slate-800/95" />
-          
-          {/* Animated overlay pattern */}
-          <div className="absolute inset-0 opacity-10" 
-               style={{ 
-                 backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(255,255,255,.05) 60px, rgba(255,255,255,.05) 120px)'
-               }} 
-          />
-        </motion.div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-8"
-          >
-            {/* Main Headline */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight">
-              Enterprise Concrete & Epoxy Flooring
-            </h1>
-            
-            <h2 className="text-2xl md:text-4xl font-semibold text-blue-300">
-              For Airports, Warehouses, and Big-Box Retail
-            </h2>
-
-            <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-              MLS Flooring partners with GCs and facility teams to deliver polished concrete, epoxy coatings, 
-              and surface preparation at scale. From Amazon distribution centers to international airports, 
-              we execute with precision and speed.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={scrollToContact}
-                className="group px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg transition-all shadow-2xl hover:shadow-blue-500/50 flex items-center justify-center gap-3"
-              >
-                Request a Bid
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </motion.button>
-              
-              <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href="#projects"
-                className="px-10 py-5 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-2 border-white/40 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3"
-              >
-                View Recent Projects
-              </motion.a>
-            </div>
-          </motion.div>
+      {/* Hero Section */}
+      <section className="relative pt-24 pb-16 md:pt-32 md:pb-20 lg:min-h-screen lg:flex lg:items-center bg-gradient-to-br from-mls-slate via-blue-900 to-slate-800 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 opacity-20">
+            <Image
+              src="/hero-bg.png"
+              alt="Commercial flooring"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/50 to-slate-900" />
         </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="animate-bounce">
-            <ArrowRight className="w-6 h-6 text-white rotate-90" />
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Text Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              className="text-center lg:text-left"
+            >
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-4 md:mb-6">
+                Enterprise Concrete & Epoxy Flooring
+              </h1>
+              
+              <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-blue-300 mb-4 md:mb-6">
+                For Airports, Warehouses, and Big-Box Retail
+              </p>
+
+              <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto lg:mx-0 mb-8 md:mb-10 leading-relaxed">
+                MLS Flooring partners with GCs and facility teams to deliver polished concrete, epoxy coatings, 
+                and surface preparation at scale. From Amazon distribution centers to international airports, 
+                we execute with precision and speed.
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={scrollToContact}
+                  className="group px-8 py-4 bg-mls-blue hover:bg-blue-700 text-white rounded-xl font-bold text-base sm:text-lg transition-all shadow-2xl hover:shadow-blue-500/50 flex items-center justify-center gap-2"
+                >
+                  Request a Bid
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </motion.button>
+                
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => handleNavClick('projects')}
+                  className="px-8 py-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-2 border-white/40 rounded-xl font-bold text-base sm:text-lg transition-all flex items-center justify-center gap-2"
+                >
+                  View Projects
+                </motion.button>
+              </div>
+            </motion.div>
+
+            {/* Hero Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
+              className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl"
+            >
+              <Image
+                src="/epoxy-flooring.jpeg"
+                alt="Industrial warehouse flooring"
+                fill
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Why MLS Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="about" className="py-16 md:py-20 bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center mb-12 md:mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               Why MLS Flooring
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-mls-gray max-w-3xl mx-auto">
               Trusted by Fortune 500 companies for large-scale commercial flooring projects
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+          >
             {[
               {
                 icon: Award,
                 title: 'National Account Experience',
-                description: 'Amazon, CLT Airport, national retail chains',
-                color: 'from-blue-500 to-blue-600'
+                description: 'Amazon, CLT Airport, national retail chains'
               },
               {
                 icon: Clock,
                 title: 'Night & Shutdown Work Experts',
-                description: 'Minimizing disruption to your operations',
-                color: 'from-emerald-500 to-emerald-600'
+                description: 'Minimizing disruption to your operations'
               },
               {
                 icon: Shield,
-                title: 'Certified Crews & Advanced Equipment',
-                description: 'Latest technology and trained professionals',
-                color: 'from-purple-500 to-purple-600'
+                title: 'Certified Crews & Equipment',
+                description: 'Latest technology and trained professionals'
               },
               {
                 icon: Users,
                 title: 'Dedicated Project Manager',
-                description: 'For every site, ensuring seamless execution',
-                color: 'from-orange-500 to-orange-600'
+                description: 'For every site, ensuring seamless execution'
               }
             ].map((item, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                variants={itemVariants}
                 whileHover={{ y: -8, scale: 1.02 }}
-                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all border border-gray-100"
+                className="bg-white p-6 md:p-8 rounded-2xl border border-mls-border shadow-sm hover:shadow-md transition-all"
               >
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br ${item.color} mb-6 shadow-lg`}>
-                  <item.icon className="w-8 h-8 text-white" />
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-mls-blue to-blue-600 mb-5 shadow-lg">
+                  <item.icon className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                <p className="text-mls-gray leading-relaxed">{item.description}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Services Section - Rebuilt */}
-      <section id="services" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Services Section */}
+      <section id="services" className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center mb-12 md:mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               Comprehensive Flooring Services
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-mls-gray max-w-3xl mx-auto">
               Full-spectrum solutions for commercial and industrial facilities
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          >
             {[
               {
                 icon: Grid3x3,
@@ -284,153 +352,172 @@ export default function Home() {
               },
               {
                 icon: Droplets,
-                title: 'Moisture Mitigation Systems',
+                title: 'Moisture Mitigation',
                 description: 'Vapor barrier and moisture control solutions',
                 image: '/concrete-polishing.jpeg'
               },
               {
                 icon: FileCheck,
-                title: 'Large-Scale Commercial Packages',
+                title: 'Full Commercial Packages',
                 description: 'Turnkey flooring solutions for major facilities',
                 image: '/surface-prep.jpeg'
               }
             ].map((service, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                variants={itemVariants}
                 whileHover={{ y: -10 }}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all"
+                className="group bg-white rounded-2xl overflow-hidden border border-mls-border shadow-sm hover:shadow-md transition-all"
               >
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   <div className="absolute top-4 left-4">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-blue-600 shadow-lg">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-mls-blue shadow-lg">
                       <service.icon className="w-6 h-6 text-white" />
                     </div>
                   </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{service.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{service.description}</p>
+                  <p className="text-mls-gray leading-relaxed">{service.description}</p>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Industries Section */}
-      <section id="industries" className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="industries" className="py-16 md:py-20 bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center mb-12 md:mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               Industries We Serve
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-mls-gray max-w-3xl mx-auto">
               Specialized flooring solutions for demanding commercial environments
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          >
             {[
               {
                 icon: Warehouse,
                 title: 'Distribution & Fulfillment Centers',
                 description: 'High-traffic concrete polishing and coatings for 24/7 operations. Designed for forklifts, pallet jacks, and heavy machinery.',
-                color: 'from-blue-600 to-blue-700'
+                image: '/amazon.jpg'
               },
               {
                 icon: Plane,
                 title: 'Airports & Transportation Hubs',
                 description: 'Durable, low-maintenance flooring for terminals, concourses, and baggage areas. Meets strict safety and aesthetic standards.',
-                color: 'from-cyan-600 to-cyan-700'
+                image: '/airport.jpg'
               },
               {
                 icon: ShoppingCart,
                 title: 'Big-Box & Retail Chains',
                 description: 'Polished concrete and epoxy systems that combine durability with visual appeal for high customer traffic.',
-                color: 'from-purple-600 to-purple-700'
+                image: '/schools.jpg'
               },
               {
                 icon: Factory,
                 title: 'Manufacturing & Pharmaceutical',
                 description: 'Chemical-resistant, seamless flooring meeting FDA and ISO standards. Cleanroom-compatible solutions available.',
-                color: 'from-emerald-600 to-emerald-700'
+                image: '/epoxy-flooring.jpeg'
               },
               {
                 icon: GraduationCap,
-                title: 'Education & Municipal Facilities',
+                title: 'Education & Municipal',
                 description: 'Low-VOC, sustainable flooring for schools, universities, and government buildings. Designed for safety and longevity.',
-                color: 'from-orange-600 to-orange-700'
+                image: '/concrete-polishing.jpeg'
               },
               {
                 icon: Building2,
                 title: 'Corporate & Office Spaces',
                 description: 'Modern polished concrete and decorative systems for lobbies, showrooms, and open office environments.',
-                color: 'from-slate-600 to-slate-700'
+                image: '/surface-prep.jpeg'
               }
             ].map((industry, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                variants={itemVariants}
                 whileHover={{ y: -8 }}
-                className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all border border-gray-100"
+                className="relative bg-white p-6 md:p-8 rounded-2xl border border-mls-border shadow-sm hover:shadow-md transition-all overflow-hidden group"
               >
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br ${industry.color} mb-6 shadow-lg`}>
-                  <industry.icon className="w-8 h-8 text-white" />
+                {/* Background Image */}
+                {index < 3 && (
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500">
+                    <Image
+                      src={industry.image}
+                      alt={industry.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                
+                <div className="relative z-10">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-mls-blue to-blue-600 mb-5 shadow-lg">
+                    <industry.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">{industry.title}</h3>
+                  <p className="text-mls-gray leading-relaxed">{industry.description}</p>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{industry.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{industry.description}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Featured Projects Section */}
-      <section id="projects" className="py-24 bg-slate-900 text-white relative overflow-hidden">
-        {/* Background Pattern */}
+      <section id="projects" className="py-16 md:py-20 bg-mls-slate text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" 
              style={{ 
                backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(255,255,255,.05) 60px, rgba(255,255,255,.05) 120px)'
              }} 
         />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center mb-12 md:mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               Featured Projects
             </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
               Large-scale installations delivered on time and within budget
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          >
             {[
               {
                 title: 'Amazon Fulfillment Center',
@@ -459,14 +546,11 @@ export default function Home() {
             ].map((project, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -10, scale: 1.02 }}
+                variants={itemVariants}
+                whileHover={{ y: -10 }}
                 className="group bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden hover:bg-white/10 transition-all border border-white/10"
               >
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative aspect-[16/9] overflow-hidden">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -475,58 +559,58 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
                 </div>
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+                <div className="p-6">
+                  <h3 className="text-xl md:text-2xl font-bold mb-2">{project.title}</h3>
                   <p className="text-blue-400 font-semibold mb-4">{project.size} • {project.location}</p>
-                  <div className="space-y-2 mb-4">
+                  <div className="space-y-2 text-sm">
                     <p className="text-gray-300"><span className="font-semibold">Scope:</span> {project.scope}</p>
                     <p className="text-gray-300"><span className="font-semibold">Timeline:</span> {project.timeline}</p>
                   </div>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
             className="text-center mt-12"
           >
-            <button className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl">
-              View Full Projects
+            <button className="px-8 py-4 bg-mls-blue hover:bg-blue-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl">
+              View All Projects
             </button>
           </motion.div>
         </div>
       </section>
 
       {/* Contact / Bid Request Section */}
-      <section id="contact" className="py-24 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="contact" className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center mb-12 md:mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               Request a Bid
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-mls-gray max-w-3xl mx-auto">
               Get a detailed quote for your commercial flooring project
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             {/* Form */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="bg-white p-8 md:p-10 rounded-2xl shadow-xl"
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="bg-white p-6 md:p-10 rounded-2xl border border-mls-border shadow-lg"
             >
               <form className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
@@ -535,7 +619,7 @@ export default function Home() {
                     <input 
                       type="text" 
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-mls-blue focus:ring-2 focus:ring-blue-200 transition-all outline-none"
                       placeholder="John Doe"
                     />
                   </div>
@@ -544,7 +628,7 @@ export default function Home() {
                     <input 
                       type="text" 
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-mls-blue focus:ring-2 focus:ring-blue-200 transition-all outline-none"
                       placeholder="Company Name"
                     />
                   </div>
@@ -556,7 +640,7 @@ export default function Home() {
                     <input 
                       type="email" 
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-mls-blue focus:ring-2 focus:ring-blue-200 transition-all outline-none"
                       placeholder="john@company.com"
                     />
                   </div>
@@ -565,7 +649,7 @@ export default function Home() {
                     <input 
                       type="tel" 
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-mls-blue focus:ring-2 focus:ring-blue-200 transition-all outline-none"
                       placeholder="(704) 981-0555"
                     />
                   </div>
@@ -577,16 +661,16 @@ export default function Home() {
                     <input 
                       type="text" 
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-mls-blue focus:ring-2 focus:ring-blue-200 transition-all outline-none"
                       placeholder="Charlotte, NC"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Approx. Square Footage *</label>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">Square Footage *</label>
                     <input 
                       type="text" 
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-mls-blue focus:ring-2 focus:ring-blue-200 transition-all outline-none"
                       placeholder="50,000 sq ft"
                     />
                   </div>
@@ -597,7 +681,7 @@ export default function Home() {
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Floor Type *</label>
                     <select 
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-mls-blue focus:ring-2 focus:ring-blue-200 transition-all outline-none bg-white"
                     >
                       <option value="">Select...</option>
                       <option>Concrete Polishing</option>
@@ -611,7 +695,7 @@ export default function Home() {
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Timeline *</label>
                     <select 
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-mls-blue focus:ring-2 focus:ring-blue-200 transition-all outline-none bg-white"
                     >
                       <option value="">Select...</option>
                       <option>Immediate (1-2 weeks)</option>
@@ -626,14 +710,14 @@ export default function Home() {
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Project Details</label>
                   <textarea 
                     rows={4}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none resize-none"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-mls-blue focus:ring-2 focus:ring-blue-200 transition-all outline-none resize-none"
                     placeholder="Tell us about your project..."
                   />
                 </div>
 
                 <button 
                   type="submit"
-                  className="w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl"
+                  className="w-full px-8 py-4 bg-mls-blue hover:bg-blue-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl"
                 >
                   Submit Bid Request
                 </button>
@@ -642,11 +726,11 @@ export default function Home() {
 
             {/* Image */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative h-full min-h-[600px] rounded-2xl overflow-hidden shadow-2xl"
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="relative h-full min-h-[500px] lg:min-h-[700px] rounded-2xl overflow-hidden shadow-2xl"
             >
               <Image
                 src="/epoxy-flooring.jpeg"
@@ -654,10 +738,10 @@ export default function Home() {
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                <h3 className="text-3xl font-bold mb-4">Ready to Start Your Project?</h3>
-                <p className="text-lg text-gray-200 mb-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
+                <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to Start Your Project?</h3>
+                <p className="text-base md:text-lg text-gray-200 mb-6 max-w-xl">
                   Our team of experts is standing by to provide a detailed quote and project timeline.
                 </p>
                 <a 
@@ -674,33 +758,27 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="grid md:grid-cols-4 gap-12 mb-12"
-          >
+      <footer className="bg-mls-slate text-white py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-8 md:mb-12">
             {/* Logo & Info */}
-            <div className="md:col-span-2">
+            <div>
               <Image 
                 src="/logo.png" 
                 alt="MLS Flooring" 
-                width={180} 
-                height={54}
-                className="h-12 w-auto mb-6 brightness-0 invert"
+                width={160} 
+                height={48}
+                className="h-10 w-auto mb-6 brightness-0 invert"
               />
-              <p className="text-gray-400 leading-relaxed mb-6">
-                Enterprise-grade concrete polishing and epoxy coating solutions for commercial and industrial facilities nationwide.
+              <p className="text-gray-400 leading-relaxed mb-6 max-w-sm">
+                Enterprise-grade concrete polishing and epoxy coating solutions for commercial facilities nationwide.
               </p>
               <div className="space-y-2">
                 <a href="tel:7049810555" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
                   <Phone className="w-4 h-4" />
                   <span>704-981-0555</span>
                 </a>
-                <p className="text-gray-400">Charlotte, NC & Southeast Region</p>
+                <p className="text-gray-400">Charlotte, NC</p>
               </div>
             </div>
 
@@ -708,11 +786,11 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-bold mb-4">Quick Links</h4>
               <ul className="space-y-2">
-                <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Services</a></li>
-                <li><a href="#industries" className="text-gray-400 hover:text-white transition-colors">Industries</a></li>
-                <li><a href="#projects" className="text-gray-400 hover:text-white transition-colors">Projects</a></li>
-                <li><a href="#about" className="text-gray-400 hover:text-white transition-colors">About</a></li>
-                <li><a href="#contact" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                <li><button onClick={() => handleNavClick('services')} className="text-gray-400 hover:text-white transition-colors">Services</button></li>
+                <li><button onClick={() => handleNavClick('industries')} className="text-gray-400 hover:text-white transition-colors">Industries</button></li>
+                <li><button onClick={() => handleNavClick('projects')} className="text-gray-400 hover:text-white transition-colors">Projects</button></li>
+                <li><button onClick={() => handleNavClick('about')} className="text-gray-400 hover:text-white transition-colors">About</button></li>
+                <li><button onClick={() => handleNavClick('contact')} className="text-gray-400 hover:text-white transition-colors">Contact</button></li>
               </ul>
             </div>
 
@@ -727,19 +805,13 @@ export default function Home() {
                 <li>Tennessee</li>
               </ul>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="border-t border-gray-800 pt-8 text-center"
-          >
-            <p className="text-gray-500">
+          <div className="border-t border-gray-800 pt-8 text-center">
+            <p className="text-gray-500 text-sm">
               © {new Date().getFullYear()} MLS Flooring. All rights reserved. Licensed & Insured.
             </p>
-          </motion.div>
+          </div>
         </div>
       </footer>
     </div>
