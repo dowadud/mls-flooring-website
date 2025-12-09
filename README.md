@@ -1,88 +1,159 @@
-# MLS Flooring Website
+# MLS Flooring - Enterprise Commercial Flooring Website
 
-A modern, professional website for MLS Flooring - Enterprise-Grade Flooring Solutions.
+A high-end, professional website for MLS Flooring - delivering enterprise-grade commercial concrete polishing and epoxy coating solutions.
 
-## 🎨 Features
+## 🏗️ Overview
 
-- ✨ Modern, responsive design with smooth animations
-- 🖼️ Professional images from the original website
-- 🎨 Built with Next.js 15, TypeScript, and Tailwind CSS
-- 🚀 Optimized for performance and SEO
-- 📱 Mobile-first responsive design
-- 🎭 Framer Motion animations for smooth transitions
-- 🎯 Professional UI/UX design with real imagery
+This is a complete enterprise-level website redesign built for a Fortune 500-caliber commercial flooring contractor. The site showcases MLS Flooring's expertise in large-scale projects for airports, warehouses, distribution centers, and big-box retail facilities.
 
-## 📸 Images Included
+## ✨ Features
 
-- **Logo**: MLS Flooring branded logo in navigation and footer
-- **Service Images**:
-  - Epoxy Flooring Systems (construction worker pouring epoxy)
-  - Specialized Concrete Floor Polishing (worker using floor polishing machine)
-  - Surface Preparation & Restoration (workers sealing floor cracks)
-- **Client Images**:
-  - Amazon Fulfillment Centers
-  - Charlotte International Airport
-  - Educational Institutions (colleges and universities)
-- **Hero Background**: Professional flooring imagery
+### Design & User Experience
+- **Enterprise B2B Aesthetic** - Professional, clean design matching Fortune 500 contractor standards
+- **Smooth Animations** - Framer Motion powered transitions, scroll effects, and hover interactions
+- **Premium Mobile Experience** - Fully responsive design optimized for all devices
+- **Strategic Whitespace** - Spacious, breathable layout conveying professionalism
+- **Strong Branding** - Consistent color palette (deep blue, slate, emerald accents)
 
-## 🎬 Animations
+### Key Sections
 
-- **Hero Section**: Fade-in animations with staggered timing
-- **Service Cards**: Hover lift effect with image zoom
-- **Client Cards**: Scale and lift on hover with image zoom
-- **Industry Icons**: Scale and rotate on hover with color transitions
-- **Navigation**: Smooth slide-down from top
-- **Scroll Animations**: Elements fade and slide up as you scroll
+#### 1. **Sticky Header**
+- Shrink animation on scroll
+- Logo + navigation (Services, Industries, Projects, About, Contact)
+- Click-to-call: **704-981-0555**
+- Primary CTA: "Request a Bid"
+
+#### 2. **Hero Section**
+- Full-width animated background with parallax effect
+- Enterprise messaging: "Enterprise Concrete & Epoxy Flooring"
+- Authoritative copy focused on airports, warehouses, and big-box retail
+- Dual CTAs: Request a Bid + View Recent Projects
+
+#### 3. **Why MLS**
+- 4 animated cards highlighting:
+  - National Account Experience (Amazon, CLT Airport)
+  - Night & Shutdown Work Expertise
+  - Certified Crews & Advanced Equipment
+  - Dedicated Project Managers
+- Staggered scroll animations
+
+#### 4. **Services Section**
+- 6 comprehensive service offerings:
+  - Concrete Polishing
+  - Epoxy Coatings
+  - Surface Prep & Removal
+  - Joint Filling & Repairs
+  - Moisture Mitigation Systems
+  - Large-Scale Commercial Packages
+- Professional imagery with hover effects
+
+#### 5. **Industries Served**
+- 6 targeted industry segments with detailed descriptions:
+  - Distribution & Fulfillment Centers
+  - Airports & Transportation Hubs
+  - Big-Box & Retail Chains
+  - Manufacturing & Pharmaceutical
+  - Education & Municipal Facilities
+  - Corporate & Office Spaces
+- Gradient icon cards with hover animations
+
+#### 6. **Featured Projects**
+- 3 case study cards:
+  - **Amazon Fulfillment Center** - 700,000 sq ft, Charlotte, NC
+  - **Charlotte International Airport** - 450,000 sq ft
+  - **National Retail Distribution** - 525,000 sq ft
+- Parallax section with dark background
+- "View Full Projects" CTA
+
+#### 7. **Contact / Bid Request**
+- Comprehensive bid request form with fields:
+  - Name, Company, Email, Phone
+  - Project Location, Square Footage
+  - Floor Type (dropdown), Timeline
+  - Project Details (textarea)
+- Split layout with large industrial image
+- Fade-in animations (form from left, image from right)
+
+#### 8. **Professional Footer**
+- Company info, quick links, service regions
+- Contact information
+- Dark slate background
+- Copyright and licensing info
+
+## 🎨 Design System
+
+### Color Palette
+- **Primary**: Blue (#2563EB)
+- **Dark**: Slate (#0F172A, #1E293B)
+- **Accent**: Emerald, Cyan, Purple gradients
+- **Text**: Gray scale hierarchy
+
+### Typography
+- **Font**: Inter (system font)
+- **Hierarchy**: 
+  - Hero: 5xl - 8xl
+  - Headings: 4xl - 5xl
+  - Body: base - xl
+  - Labels: sm
+
+### Animations
+- Page load fade-ins
+- Scroll-triggered reveals
+- Card hover lifts and scales
+- Image zoom on hover
+- Parallax effects
+- Button interactions
 
 ## 💻 Tech Stack
 
-- **Framework:** Next.js 15 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Animations:** Framer Motion
-- **Icons:** Lucide React
-- **Deployment:** Vercel-ready
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Forms**: React Hook Form + Zod
+- **Deployment**: Vercel
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-
-- Node.js 18+ installed
-- npm or yarn package manager
+- Node.js 18+
+- npm or yarn
 
 ### Installation
 
-1. Clone the repository:
 ```bash
+# Clone the repository
 git clone https://github.com/dowadud/mls-flooring-website.git
 cd mls-flooring-website
-```
 
-2. Install dependencies:
-```bash
+# Install dependencies
 npm install
-```
 
-3. Run the development server:
-```bash
+# Run development server
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Visit [http://localhost:3000](http://localhost:3000)
 
-## 🌐 Deployment on Vercel
+### Build for Production
 
-This project is optimized for deployment on Vercel:
+```bash
+npm run build
+npm start
+```
 
-### Option 1: Via Vercel Dashboard (Recommended)
-1. Go to [vercel.com](https://vercel.com)
-2. Sign in with GitHub
-3. Click **"Add New Project"**
-4. Select **`mls-flooring-website`** from your repositories
-5. Click **"Deploy"** (Vercel auto-detects Next.js settings)
-6. Your site will be live in ~2 minutes! 🎉
+## 🌐 Deployment
 
-### Option 2: Using Vercel CLI
+### Deploy to Vercel (Recommended)
+
+1. Push code to GitHub
+2. Go to [vercel.com](https://vercel.com)
+3. Import the `mls-flooring-website` repository
+4. Click "Deploy"
+5. Done! ✅
+
+Or use Vercel CLI:
 ```bash
 npm install -g vercel
 vercel --prod
@@ -93,11 +164,12 @@ vercel --prod
 ```
 mls-flooring-website/
 ├── app/
-│   ├── blog/           # Blog page
-│   ├── layout.tsx      # Root layout with metadata
-│   ├── page.tsx        # Home page with all sections
-│   └── globals.css     # Global styles
-├── public/             # Static assets and images
+│   ├── blog/
+│   │   └── page.tsx         # Blog page
+│   ├── layout.tsx           # Root layout with SEO metadata
+│   ├── page.tsx             # Homepage (main site)
+│   └── globals.css          # Global styles & animations
+├── public/
 │   ├── logo.png
 │   ├── hero-bg.png
 │   ├── epoxy-flooring.jpeg
@@ -106,69 +178,74 @@ mls-flooring-website/
 │   ├── amazon.jpg
 │   ├── airport.jpg
 │   └── schools.jpg
-└── package.json        # Dependencies
+├── package.json
+├── next.config.ts
+├── tailwind.config.ts
+└── tsconfig.json
 ```
 
-## 🎨 Sections Implemented
+## 🎯 SEO Optimization
 
-### 1. **Hero Section**
-- Large, attention-grabbing header
-- Animated call-to-action buttons
-- Professional background imagery
-- Enterprise-focused messaging
+### Metadata
+- **Title**: "MLS Flooring | Commercial Concrete Polishing & Epoxy Floors"
+- **Description**: Enterprise-grade solutions for airports, warehouses, and commercial facilities
+- **Keywords**: Commercial concrete polishing, epoxy flooring, warehouse flooring, airport flooring, etc.
 
-### 2. **Services Section**
-- 3 service cards with professional images:
-  - Epoxy Flooring Systems
-  - Specialized Concrete Floor Polishing
-  - Surface Preparation & Restoration
-- Detailed feature lists
-- Hover animations with image zoom effects
+### Technical SEO
+- Semantic HTML5
+- Proper heading hierarchy
+- Alt text on all images
+- Fast page load (Next.js optimization)
+- Mobile-first responsive
+- Smooth scroll behavior
+- Accessible focus states
 
-### 3. **Clients Section**
-- Showcasing major clients:
-  - Amazon Fulfillment Centers (Nationwide)
-  - Charlotte International Airport
-  - Educational Institutions
-- Professional client photography
-- Image overlay effects on hover
+## ♿ Accessibility
 
-### 4. **Industries Section**
-- 8 key industries served:
-  - Healthcare Facilities
-  - Corporate Offices
-  - Industrial Warehouses
-  - Retail Stores
-  - Educational Institutions
-  - Pharmaceutical Labs
-  - Airports & Hubs
-  - Big Box Stores
-- Animated icon cards
-- Professional color scheme
+- WCAG 2.1 compliant color contrast
+- Keyboard navigation support
+- Focus visible styles
+- Semantic HTML structure
+- Descriptive labels and aria attributes
+- Responsive font sizes
 
-### 5. **Navigation & Footer**
-- Logo-based branding
-- Clean, professional layout
-- Responsive design for mobile
+## 📱 Mobile Responsive
+
+- Breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px)
+- Touch-friendly buttons and forms
+- Optimized images for mobile
+- Responsive navigation
+- Mobile-first approach
 
 ## 🎨 Customization
 
-To customize the website:
+### Update Colors
+Edit `app/page.tsx` and replace Tailwind color classes:
+- `bg-blue-600` → your primary color
+- `from-slate-900` → your dark color
+- `text-emerald-600` → your accent color
 
-1. **Colors:** Edit Tailwind classes in components (e.g., `bg-blue-600`)
-2. **Content:** Modify text in `app/page.tsx`
-3. **Images:** Replace images in the `public/` folder
-4. **Styling:** Edit `app/globals.css` for global styles
-5. **Animations:** Adjust Framer Motion settings in components
+### Update Content
+All content is in `app/page.tsx` - simply edit the text in each section.
 
-## 🔗 GitHub Repository
+### Replace Images
+Add new images to `public/` folder and update the `src` attributes.
 
-**URL:** [https://github.com/dowadud/mls-flooring-website](https://github.com/dowadud/mls-flooring-website)
+## 📞 Contact Information
+
+- **Phone**: 704-981-0555
+- **Location**: Charlotte, NC
+- **Service Area**: Southeast United States
+
+## 🔗 Links
+
+- **Website**: [Coming Soon]
+- **GitHub**: [https://github.com/dowadud/mls-flooring-website](https://github.com/dowadud/mls-flooring-website)
 
 ## 📄 License
 
-© 2024 MLS Flooring. All rights reserved.
+© 2024 MLS Flooring. All rights reserved. Licensed & Insured.
 
 ---
 
-Built with ❤️ using Next.js, TypeScript, and Tailwind CSS
+**Built with precision for enterprise-level commercial flooring.**
