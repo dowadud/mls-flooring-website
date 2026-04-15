@@ -4,10 +4,12 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'cdn.durable.co',
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
       },
     ],
+    unoptimized: true,
   },
 };
 
